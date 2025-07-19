@@ -15,7 +15,7 @@ def Main_function(user_input):
     except Exception as ex:
         print(ex)
 
-    Excel_data = pd.read_excel(r'HR_Employee_Data.xlsx')
+    Excel_data = pd.read_excel(r'C:\Python_practice\GENAI\HR_Employee_Data.xlsx')
 
     Analysis_prompt = ChatPromptTemplate.from_messages([
     ("system",
@@ -36,6 +36,8 @@ Your goal is to help users quickly get exactly the information they need from th
 """),
     ("placeholder", "{message}")
 ])
+
+#recent push
 
 
 
