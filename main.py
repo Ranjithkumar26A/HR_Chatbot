@@ -14,7 +14,7 @@ def Main_function(user_input):
 
     LLM = ChatGoogleGenerativeAI(model="gemini-1.5-flash",temperature=.7)
 
-    Excel_data = pd.read_excel(r'../HR_Employee_Data.xlsx')
+    Excel_data = pd.read_excel(r'HR_Employee_Data.xlsx')
 
     Analysis_prompt = ChatPromptTemplate.from_messages([
     ("system",
