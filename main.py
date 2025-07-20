@@ -51,7 +51,7 @@ Your goal is to help users quickly get exactly the information they need from th
     response_chain = Analysis_prompt | LLM
 
     User_input = {
-    "message": [user_input],
+    "message": user_input,
 }
 
 
