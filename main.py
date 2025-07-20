@@ -23,7 +23,7 @@ def Main_function(user_input):
     # Convert DataFrame to CSV string
     csv_data = Excel_data.to_csv(index=False)
 
-    with open('policies.txt', 'r', encoding='utf-8') as file:
+    with open('Policies.txt', 'r', encoding='utf-8') as file:
         content = file.read()
 
 
