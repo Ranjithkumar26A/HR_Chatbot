@@ -23,6 +23,9 @@ def Main_function(user_input):
 
 Excel dataset: {Excel_data}
 
+ - Use ONLY the data directly present in the Excel dataset above...
+
+
 GUIDELINES:
 1. Use ONLY the data directly present in the Excel dataset above for ALL responses.
 2. You are allowed and expected to perform simple data analysis tasks on the dataset such as sorting, filtering, aggregation (e.g., finding the highest salary, average, counts).
@@ -45,10 +48,10 @@ Your goal is to help users quickly get exactly the information they need from th
     response_chain = Analysis_prompt | LLM
 
     User_input = {
+    "message": [user_input],
+    "Excel_data": Excel_data.to_csv(index=False)
+}
 
-        "message" : [user_input],
-        "Excel_data": Excel_data.to_dict()
-    }
 
     Response = response_chain.invoke(User_input)
 
