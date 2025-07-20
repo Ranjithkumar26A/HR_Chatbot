@@ -47,7 +47,7 @@ Your goal is to help users quickly get exactly the information they need from th
     User_input = {
 
         "message" : [user_input],
-        "Excel_data": Excel_data
+        "Excel_data": Excel_data.to_dict()
     }
 
     Response = response_chain.invoke(User_input)
