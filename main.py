@@ -9,7 +9,7 @@ from langchain.schema import HumanMessage
 
 def Main_function(user_input):
     load_dotenv()
-    os.environ['GOOGLE_API_KEY']
+    os.environ['GOOGLE_API_KEY'] = st.secrets["GOOGLE_API_KEY"]
     try:
         LLM = ChatGoogleGenerativeAI(model="gemini-1.5-flash",temperature=.7)
     except Exception as ex:
