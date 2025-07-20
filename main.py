@@ -49,7 +49,8 @@ Your goal is to help users quickly get exactly the information they need from th
 
     # User input dictionary for the prompt
     User_input = {
-        "message": user_input 
+        "message": user_input,
+        "csv_data" :csv_data,
     }
 
     # Invoke chain and get response
