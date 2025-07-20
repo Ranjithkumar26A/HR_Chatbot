@@ -17,11 +17,14 @@ def Main_function(user_input):
 
     Excel_data = pd.read_excel(r'HR_Employee_Data.xlsx')
 
+    csv_data = Excel_data.to_csv(index=False)
+
     Analysis_prompt = ChatPromptTemplate.from_messages([
     ("system",
     """You are a smart, friendly, and highly focused data analysis assistant. You analyze the provided Excel HR dataset and respond clearly and precisely in natural language.
 
-Excel dataset: {Excel_data}
+Excel dataset: {csv_data}
+
 
  - Use ONLY the data directly present in the Excel dataset above...
 
@@ -49,7 +52,6 @@ Your goal is to help users quickly get exactly the information they need from th
 
     User_input = {
     "message": [user_input],
-    "Excel_data": Excel_data.to_csv(index=False)
 }
 
 
