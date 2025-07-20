@@ -23,27 +23,35 @@ def Main_function(user_input):
     # Convert DataFrame to CSV string
     csv_data = Excel_data.to_csv(index=False)
 
+    with open('policies.txt', 'r', encoding='utf-8') as file:
+        content = file.read()
+
+
        # Define prompt template with placeholders
     Analysis_prompt = ChatPromptTemplate.from_messages([
-        ("system", 
-        """You are a smart, friendly, and highly focused data analysis assistant. You analyze the provided Excel HR dataset and respond clearly and precisely in natural language.
+    ("system", 
+    """You are a smart, friendly, and highly focused HR assistant. You have two sources of information to help the user:
 
-Excel dataset (CSV):
+1. An Excel HR dataset (CSV format):
 {csv_data}
 
-GUIDELINES:
-1. Use ONLY the data directly present in the Excel dataset above for ALL responses.
-2. You are allowed and expected to perform simple data analysis tasks on the dataset such as sorting, filtering, aggregation (e.g., finding the highest salary, average, counts).
-3. If the user asks for the highest paid employee, find the employee with the maximum salary by analyzing the dataset and respond with a clear sentence like: "Saran is the highest paid employee with a salary of $20,000."
-4. If the requested information is not present or cannot be determined from the data, respond clearly: "This information is not available in the dataset."
-5. Do NOT guess, infer, or fabricate data outside what is given.
-6. Answer ONLY what the user asks. Do not provide extra summaries or charts unless requested.
-7. For greetings or general chit-chat, respond politely and ask if you can help with the dataset.
+2. A company's HR policies document (plain text):
+{hr_policies}
 
-Your goal is to help users quickly get exactly the information they need from the dataset by reading and analyzing it.
+GUIDELINES:
+- For any question related to employee data (e.g., salaries, counts, departments), use ONLY the Excel dataset.
+- For questions related to company rules, benefits, conduct, or general HR policies, use ONLY the HR policies document.
+- Do NOT mix or guess information outside these two sources.
+- If the information requested is not found in either source, respond: "This information is not available in the dataset or the policies."
+- Provide clear, polite, and well-structured answers. Use bullet points, numbered lists, or paragraphs to make answers easy to read.
+- Only answer what is asked. Do not add extra info unless requested.
+- For greetings or chit-chat, respond politely and ask if you can help with the dataset or policies.
+
+Your goal is to help users get exactly the information they need from the dataset or the policies by reading and analyzing them carefully.
 """),
-        ("user", "{message}")
-    ])
+    ("user", "{message}")
+])
+
 
     # Create the chain by piping prompt to LLM
     response_chain = Analysis_prompt | LLM
@@ -51,7 +59,8 @@ Your goal is to help users quickly get exactly the information they need from th
     # User input dictionary, matching placeholders in prompt
     User_input = {
         "csv_data": csv_data,
-        "message": user_input
+        "message": user_input,
+        "hr_policies": content
     }
 
     # Invoke the chain and get the response
