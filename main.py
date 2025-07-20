@@ -23,9 +23,10 @@ def Main_function(user_input):
     # Convert DataFrame to CSV string
     csv_data = Excel_data.to_csv(index=False)
 
-    # Create the prompt template with csv_data injected using an f-string!
+       # Define prompt template with placeholders
     Analysis_prompt = ChatPromptTemplate.from_messages([
-        ("system", f"""You are a smart, friendly, and highly focused data analysis assistant. You analyze the provided Excel HR dataset and respond clearly and precisely in natural language.
+        ("system", 
+        """You are a smart, friendly, and highly focused data analysis assistant. You analyze the provided Excel HR dataset and respond clearly and precisely in natural language.
 
 Excel dataset (CSV):
 {csv_data}
@@ -41,19 +42,19 @@ GUIDELINES:
 
 Your goal is to help users quickly get exactly the information they need from the dataset by reading and analyzing it.
 """),
-        ("placeholder", "{message}")
+        ("user", "{message}")
     ])
 
-    # Create chain by piping prompt and LLM
+    # Create the chain by piping prompt to LLM
     response_chain = Analysis_prompt | LLM
 
-    # User input dictionary for the prompt
+    # User input dictionary, matching placeholders in prompt
     User_input = {
-        "message": user_input,
-        "csv_data" :csv_data,
+        "csv_data": csv_data,
+        "message": user_input
     }
 
-    # Invoke chain and get response
+    # Invoke the chain and get the response
     Response = response_chain.invoke(User_input)
 
     return Response.content
